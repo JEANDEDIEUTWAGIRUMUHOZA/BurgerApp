@@ -1,7 +1,4 @@
-/**
- * Ce qui m'embête, c'est le panée. Par souci de simplicité, je vais
- */
-export class Meat {
+export class Cheese {
   private _id: number;
   private _name: string;
 
