@@ -1,0 +1,12 @@
+<div class="row" *ngIf="burgers.length > 0; else noBurger">
+  <div class="col-md-4" *ngFor="let burgerFor of burgers">
+    <!-- Je met ma boucle for sur ma div col-md-4 comme ça elle se mettront les unes à côté des autres-->
+    <app-burger [burgerChild]="burgerFor"></app-burger>
+    <!--J'utilise la variable créée dans ma boucle pour la donner au composant enfant-->
+  </div>
+</div>
+<ng-template #noBurger>
+  <div class="alert alert-danger">
+    Aucun burger à afficher
+  </div>
+</ng-template>
