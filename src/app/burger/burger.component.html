@@ -1,0 +1,29 @@
+<!--Dans ce template je vais me concentrer sur l'affichage d'un burger. Je vais donc afficher toutes les données une à une, dans une carte bootstrap.-->
+
+<div class="card" style="width: 18rem;">
+  <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+  <div class="card-body">
+    <!--Pas de difficulté pour le nom-->
+    <h5 class="card-title">{{ burgerChild.name }}</h5>
+    <!--Pour le pain, j'affiche le type de farine, s'il est complet, et sil est au céréale en utilisant ngIf-->
+    <h6 class="card-subtitle mb-2 text-muted">Pain</h6>
+    <p class="card-text">Farine de {{burgerChild.bread.flour.type}}
+      <span *ngIf="burgerChild.bread.flour.isWhole">, Complète</span>
+      <span *ngIf="burgerChild.bread.isCereal">, Aux céréales !</span>
+    </p>
+    <!--Pour la viande, comme je ne peux en avoir que deux (pour le moment), j'utilise juste le ngIf-->
+    <h6 class="card-subtitle mb-2 text-muted">Viande</h6>
+    <p class="card-text">{{ burgerChild.meats[0].name}}
+      <span *ngIf="burgerChild.meats.length > 1"><strong>X2 !</strong></span>
+    </p>
+    <!--Pour les fromages, je n'affiche que si le burger en contient, puis je boucle sur ceux présent-->
+    <h6 class="card-subtitle mb-2 text-muted" *ngIf="burgerChild.cheeses.length > 0; else noCheese">Fromage</h6>
+    <p class="card-text"><span *ngFor="let cheese of burgerChild.cheeses">{{cheese.name}} </span></p>
+    <ng-template #noCheese><h6 class="card-subtitle mb-2 text-muted">Pas de fromages !</h6></ng-template>
+    <!--Même logique pour les légumes-->
+    <h6 class="card-subtitle mb-2 text-muted" *ngIf="burgerChild.veggies.length > 0; else noVeggie">Légume</h6>
+    <p class="card-text"><span *ngFor="let veggie of burgerChild.veggies">{{veggie.name}} </span></p>
+    <ng-template #noVeggie><h6 class="card-subtitle mb-2 text-muted">Pas de légumes !</h6></ng-template>
+    <button class="btn btn-danger" (click)="deleteBurger()">Supprimer</button>
+  </div>
+</div>
