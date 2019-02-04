@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <form class="form-group text-center" (ngSubmit)="save()" #form="ngForm"> <!--Cela permet de "saisir" le formulaire-->
+      <label for="name">Nom du légume</label>
+      <input id="name" class="form-control" type="text" [(ngModel)]="name" name="name" required #veggieName="ngModel"/>
+      <div class="alert alert-danger" *ngIf="veggieName.dirty && veggieName.invalid"> <!--Si le champ a été touché par l'utilisateur en plus d'être invalid, un message d'erreur se montrera-->
+        Ce champ est obligatoire !
+      </div>
+      <button class="btn btn-primary" style="margin:25px" [disabled]="form.invalid">Save</button>
+    </form>
+    <h3>Les légumes déjà disponible !</h3>
+    <p *ngFor="let veggie of vs.getAll()">{{ veggie.id }} {{ veggie.name }}</p>
+  </div>
+</div>
+
