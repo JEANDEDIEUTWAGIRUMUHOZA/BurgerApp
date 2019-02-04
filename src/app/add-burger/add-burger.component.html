@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-9 offset-md-1">
+    <form class="form-group text-center" (ngSubmit)="save()" #form="ngForm">
+      <!--Cela permet de "saisir" le formulaire-->
+      <label for="name">Nom du burger</label>
+      <input id="name" class="form-control" type="text" [(ngModel)]="name" name="name" required #burgerName="ngModel"/>
+      <div class="alert alert-danger" *ngIf="burgerName.dirty && burgerName.invalid">
+        <!--Si le champ a été touché par l'utilisateur en plus d'être invalid, un message d'erreur se montrera-->
+        Ce champ est obligatoire !
+      </div>
+
+      <label for="bread">Quel pain ?</label>
+      <select id="bread" required [(ngModel)]="bread" class="form-control" name="bread" #breadSelect="ngModel">
+        <option *ngFor="let breadFor of breadService.getAll()" [ngValue]="breadFor">
+          Farine de {{ breadFor.flour.type }} {{ breadFor.flour.isWhole ? '/ Complète' : '' }} {{ breadFor.isCereal ? '/
+          Aux céréales' : '' }}
+        </option>
+      </select>
+      <div class="alert alert-danger" *ngIf="breadSelect.dirty && breadSelect.invalid">
+        <!--Si le champ a été touché par l'utilisateur en plus d'être invalid, un message d'erreur se montrera-->
+        Ce champ est obligatoire !
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label for="meat">Quelle viande ?</label>
+          <select id="meat" required [(ngModel)]="meat" class="form-control" name="meat" #meatSelect="ngModel">
+            <option *ngFor="let meatFor of meatService.getAll()" [ngValue]="meatFor">
+              {{meatFor.name}}
+            </option>
+          </select>
+          <div class="alert alert-danger" *ngIf="breadSelect.dirty && breadSelect.invalid">
+            <!--Si le champ a été touché par l'utilisateur en plus d'être invalid, un message d'erreur se montrera-->
+            Ce champ est obligatoire !
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="isDouble">Doubler la viande ?</label>
+          <input id="isDouble" type="checkbox" [(ngModel)]="isDouble" class="form-control" name="isDouble">
+        </div>
+      </div>
+
+      <label for="cheeses">Quelle(s) fromage(s) ?</label>
+      <div class="form-row" id="cheeses">
+        <div class="form-group col-md-6">
+          <select id="cheese1" [(ngModel)]="cheese1" class="form-control" name="cheese">
+            <option *ngFor="let cheeseFor of cheeseService.getAll()" [ngValue]="cheeseFor">
+              {{cheeseFor.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <select id="cheese2" [(ngModel)]="cheese2" class="form-control" name="cheese">
+            <option *ngFor="let cheeseFor of cheeseService.getAll()" [ngValue]="cheeseFor">
+              {{cheeseFor.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <label for="veggies">Quelle(s) Légume(s) ?</label>
+      <div class="form-row" id="veggies">
+        <div class="form-group col-md-6">
+          <select id="veggie1" [(ngModel)]="veggie1" class="form-control" name="veggie1">
+            <option *ngFor="let veggieFor of veggieService.getAll()" [ngValue]="veggieFor">
+              {{veggieFor.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <select id="veggie2" [(ngModel)]="veggie2" class="form-control" name="veggie2">
+            <option *ngFor="let veggieFor of veggieService.getAll()" [ngValue]="veggieFor">
+              {{veggieFor.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <select id="veggie3" [(ngModel)]="veggie3" class="form-control" name="veggie3">
+            <option *ngFor="let veggieFor of veggieService.getAll()" [ngValue]="veggieFor">
+              {{veggieFor.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <select id="veggie4" [(ngModel)]="veggie4" class="form-control" name="veggie4">
+            <option *ngFor="let veggieFor of veggieService.getAll()" [ngValue]="veggieFor">
+              {{veggieFor.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <select id="veggie5" [(ngModel)]="veggie5" class="form-control" name="veggie5">
+            <option *ngFor="let veggieFor of veggieService.getAll()" [ngValue]="veggieFor">
+              {{veggieFor.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="isVeggieTooMany">
+        Pas plus de 3 fois le même légume !
+      </div>
+      <button class="btn btn-primary" style="margin:25px" [disabled]="form.invalid">Save</button>
+    </form>
+    <h3>Les burgers déjà disponible :</h3>
+    <p *ngFor="let burger of burgerService.getAll()">{{ burger.id }} {{ burger.name }}</p>
+  </div>
+</div>
